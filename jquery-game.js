@@ -11,7 +11,8 @@
             // opcoes basicas.
             type: "naves",
 			enemy:{hasEnemy:true},
-			hero:{width:"10%",height:"10%",image:false,changeImage:""}
+			hero:{width:"10%",height:"10%",image:false,changeImage:""},
+			lifebar:true
         }, options );
 		
 		//funcao para permitir pausar e continuar o jogo
@@ -50,7 +51,7 @@
 			obj.css("top", obj.offset().top + 1); 
 			testaAtritoI(obj);
 			if(obj.offset().top < $(window).height())
-				timer = new Timer(function(){tiroInimigo(obj);}, 20);
+				window.setTimeout(function(){tiroInimigo(obj);}, 20);
 			else
 				obj.remove();
 		}
@@ -60,6 +61,10 @@
 				if(Math.abs(obj.offset().left) >= Math.abs(this.offsetLeft) && Math.abs(obj.offset().left) <= Math.abs(this.offsetWidth+this.offsetLeft)){
 					if(Math.abs(obj.offset().top) >= Math.abs(this.offsetTop) && Math.abs(obj.offset().top) <= Math.abs(this.offsetHeight+this.offsetTop)){	
 						pontuacao--;obj.remove();$("#pontuacao").empty();$("#pontuacao").append(pontuacao);
+						if($("#lifebarH").length){
+							$("#lifebarH").css("width",$("#lifebarH").width()-10);
+							if($("#lifebarH").width() <= 0) alert("GAME OVER!");
+						}
 					}
 				}
 			});
@@ -88,6 +93,10 @@
 				if(Math.abs(obj.offset().left) >= Math.abs(this.offsetLeft) && Math.abs(obj.offset().left) <= Math.abs(this.offsetWidth+this.offsetLeft)){
 					if(Math.abs(obj.offset().top) >= Math.abs(this.offsetTop) && Math.abs(obj.offset().top) <= Math.abs(this.offsetHeight+this.offsetTop)){	
 						pontuacao++;$("#pontuacao").empty();obj.remove();$("#pontuacao").append(pontuacao);
+						if($("#lifebarI").length){
+							$("#lifebarI").css("width",$("#lifebarI").width()-10);
+							if($("#lifebarI").width() <= 0) alert("Você venceu!");
+						}
 					}
 				}
 			});
@@ -103,32 +112,35 @@
 		
 		//representa todas as funcoes do usuario/heroi
 		function funcoesHeroi(obj){
-			document.onkeydown = function(evt) {
-				evt = evt || window.event;
-				switch(evt.keyCode){
-					case 37:
-						var a = 1
-						movimentaHeroiEsquerda(obj,a)
-						break;
-					case 39:
-						var a = 1
-						movimentaHeroiDireita(obj,a)
-						break;
-					case 32:
-						$('body').append("<hr id=\"tiro"+n+"\" class=\"tiro\" size=\"30\"  width=\"1\">");
-						$("#tiro"+n+"").css("left", obj.offset().left + (obj.width()/2));
-						$("#tiro"+n+"").css("top", obj.offset().top);
-						tiroHeroi($("#tiro"+n+""));
-						n++;
-						break;
-					case 13:
-						if(paused){
-							timer.resume();
-							paused = false;
-						}else{
-							timer.pause();
-							paused = true;
-						}
+			if(!paused){
+				document.onkeydown = function(evt) {
+					evt = evt || window.event;
+					switch(evt.keyCode){
+						case 37:
+							var a = 1
+							movimentaHeroiEsquerda(obj,a)
+							break;
+						case 39:
+							var a = 1
+							movimentaHeroiDireita(obj,a)
+							break;
+						case 32:
+							$('body').append("<hr id=\"tiro"+n+"\" class=\"tiro\" size=\"30\"  width=\"1\">");
+							$("#tiro"+n+"").css("left", obj.offset().left + (obj.width()/2));
+							$("#tiro"+n+"").css("top", obj.offset().top);
+							tiroHeroi($("#tiro"+n+""));
+							n++;
+							break;
+						case 13:
+							if(paused){
+								timer.resume();
+								paused = false;
+							}else{
+								timer.pause();
+								paused = true;
+							}
+							break;
+					}
 				}
 			}
 		}
@@ -142,6 +154,12 @@
 					$("#barra").append("Pontuacao:<br />");
 					$("#barra").append("<span id=\"pontuacao\">0</span>");
 					$("#barra").css({ left: 0, top: cima, position:"absolute", width: "100%", height:100 });
+					if(settings.lifebar){
+						$("#barra").append("<div style=\"background-color:green;\" class=\"status\" id=\"lifebarH\" ></div>");
+						$("#lifebarH").css({ position:"absolute", width: $(window).width()/2, height: "50px" });
+						$("#barra").append("<div style=\"background-color:red;\" class=\"status\" id=\"lifebarI\" ></div>");
+						$("#lifebarI").css({ left: $(window).width()/2, position:"absolute", width: $(window).width()/2, height: "50px" });
+					}
 					if(settings.hero.image)
 						$("body").append("<img src=\""+ settings.hero.changeImage +"\" class=\"heroi\" id=\"heroi\"></div>");
 					else
