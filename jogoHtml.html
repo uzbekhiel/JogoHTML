@@ -1,77 +1,21 @@
 <html>
 <head>
+<link rel="Stylesheet" type="text/css" href="naves.css"></link>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script>
-<script type="text/javascript" src="game-code.js"></script>
+<script type="text/javascript" src="jquery-game.js"></script>
 <title>Jogo</title>
 
 <script type="text/javascript">
 <!--
-	var cima = $(window).height()-100;
-	var lado = $(window).width()/2;
-	var n = 0;
-	var pontuacao = 0;
-
-	
-	
 	$(document).ready(function(){
-		$('body').css({ overflow: "hidden" });
-		//$("body").append("<div style=\"border:1px solid red;\" class=\"objeto\" id=\"objeto1\" ></div>");
-		$("body").append("<div style=\"border:1px solid green;\" class=\"objeto\" id=\"objeto2\" move=\"esquerda\" ></div>");
-		$("body").append("<img class=\"heroi\" src=\"http://images.quebarato.com.br/T440x/batwing+batman+movie+aviao+do+batman+1+25+frete+gratis+aracatuba+sp+brasil__34E3_203.jpg\" id=\"image\">");
-		$("body").append("<div style=\"border:1px solid purple;\" class=\"barra\" id=\"barra\" ></div>");
-		$("#barra").append("Pontuacao:<br />");
-		$("#barra").append("<span id=\"pontuacao\">0</span>");
-		$("#barra").css({ left: 0, top: cima, position:"absolute", width: "100%", height:100 });
-		$("#image").css({ left: lado, top: cima-$("#barra").height(), position:"absolute" });
-		//$("#objeto1").css({ left: 2, top: 2, position:"absolute", width: "50%", height: "20%" });
-		$("#objeto2").css({ left: $(window).width()/4, top: 2, position:"absolute", width: "10%", height: "10%" });
-		
-		movimentoInimigo2($("#objeto2"))
-		
-		document.onkeydown = function(evt) {
-			evt = evt || window.event;
-			switch(evt.keyCode){
-				case 37:
-					lado -= 5;
-					if(lado < 0) lado = 0
-					if(lado >= 0) $("#image").css("left", lado);
-					break;
-				case 39:
-					lado += 5;
-					
-					if(lado > ($(window).width() - $("#image").width())) lado = $(window).width() - $("#image").width()
-					if(lado <= ($(window).width() - $("#image").width())) $("#image").css("left", lado);
-					$("#image").css("left", lado);
-					break;
-				case 32:
-					$('body').append("<hr id=\"tiro"+n+"\" class=\"tiro\" size=\"30\"  width=\"1\">");
-					$("#tiro"+n+"").css("left", $("#image").offset().left + 50);
-					$("#tiro"+n+"").css("top", cima - 120);
-					tiroHeroi($("#tiro"+n+""));
-					n++;
-					break;
-			}
-		}
-				
+		$("body").game({
+			enemy:{hasEnemy:false}
+		});		
 	});
 -->
 </script>
-
-<style  type="text/css" >
-img{
-    width:100px;
-    height:100px
-}
-
-hr {
-	border: 1px solid; 
-	border-color: red;
-	position:absolute;
-	}
-</style>
 </head>
 <body id="char">
-
 </body >
 </html>
