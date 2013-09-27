@@ -12,12 +12,14 @@ Agora, o código está inserido em um plugin de jquery.
 Pretenção de que venham mais tipos de jogos, como aventura, rpg, etc...
 Conta agora com opções:
 <br />
-type -> determina o tipo de jogo. (default naves)
+type: <strong>texto</strong> ->determina o tipo de jogo. <strong>(default naves)</strong>
 <br />
 enemy: customização do inimigo.(ainda poucas opções, mas serão feitas mais no futuro)<br />
-      -> hasEnemy -> se o jogo conta com inimigo na tela (para fins de testes)<br />
+&nbsp;&nbsp;&nbsp;-> hasEnemy: <strong>true/false</strong> se o jogo conta com inimigo na tela (para fins de testes)<strong>(default true)</strong><br />
 hero: customização do herói.(ainda poucas opções, mas serão feitas mais no futuro)<br />
-      -> width -> determina a largura do herói<br />
-      -> height -> determina a altura do herói<br />
-      -> image -> determina se o herói possui uma imagem que o defina<br />
-      -> changeImage -> determina a imagem que define o herói
+&nbsp;&nbsp;&nbsp;-> width:<strong>texto(px,%,etc...)</strong> determina a largura do herói<strong>(default "10%")</strong><br />
+&nbsp;&nbsp;&nbsp;-> height:<strong>texto(px,%,etc...)</strong>  determina a altura do herói<strong>(default false)</strong><strong>(default "10%")</strong><br />
+&nbsp;&nbsp;&nbsp;-> image:<strong>true/false</strong> determina se o herói possui uma imagem que o defina<strong>(default false)</strong><br />
+&nbsp;&nbsp;&nbsp;-> changeImage:<strong>texto(caminho e nome do arquivo)</strong> determina a imagem que define o herói <strong>(default "")</strong>
+<br />
+lifebar: <strong>true/false</strong> habilita ou desabilita lifeba para inimigo e herói<strong>(default true)</strong>
